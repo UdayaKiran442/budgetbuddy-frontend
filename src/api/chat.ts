@@ -18,3 +18,19 @@ export const getMessages = async (chatId: string) => {
     console.error(error);
   }
 };
+
+export const sendMessage = async (payload: {
+  chatId: string;
+  prompt: string;
+}) => {
+  try {
+    const response = await apiInstance.post(`${endpoint}/generate`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

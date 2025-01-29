@@ -1,6 +1,8 @@
-import InputComponent from './InputComponent';
+import { useState } from 'react';
 
+import InputComponent from './InputComponent';
 const NewChat = () => {
+    const [prompt, setPrompt] = useState<string>("");
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
       };
@@ -9,7 +11,7 @@ const NewChat = () => {
     <h1 className="text-2xl font-bold">
       Ask Me Anything about Budget for FY 2025-2026
     </h1>
-    <InputComponent handleSubmit={handleSubmit} />
+    <InputComponent handleSubmit={handleSubmit} setPrompt={setPrompt} prompt={prompt} />
   </div>
   )
 }
