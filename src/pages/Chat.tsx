@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { LuBrainCircuit } from "react-icons/lu";
+import { useParams } from "react-router";
 
-import { getMessages, sendMessage } from "../api/chat";
+import { getMessagesAPI, sendMessageAPI } from "../api/chat";
 
 import InputComponent from "../components/InputComponent";
 import { IMessage } from "../models/message.model";
@@ -13,6 +14,7 @@ const Chat = () => {
   const [prompt, setPrompt] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { chatId } = useParams() as { chatId: string };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -21,7 +23,7 @@ const Chat = () => {
     const tempMessage: IMessage = {
       prompt: prompt.trim(),
       response: "",
-      chatId: "chat_5749044c-fde8-4ed8-b3b3-c30aff07757d",
+      chatId,
       messageId: `temp-${Date.now()}`,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -31,9 +33,10 @@ const Chat = () => {
       setError("");
       setIsLoading(true);
       setChatMessages((prev) => [...prev, tempMessage]);
-      
-      const response = await sendMessage({
-        chatId: "chat_5749044c-fde8-4ed8-b3b3-c30aff07757d",
+      setPrompt("");
+
+      const response = await sendMessageAPI({
+        chatId,
         prompt: prompt.trim(),
       });
 
@@ -42,7 +45,6 @@ const Chat = () => {
       }
 
       await refetch();
-      setPrompt("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -51,9 +53,7 @@ const Chat = () => {
   }
 
   async function fetchMessages() {
-    const messages = await getMessages(
-      "chat_5749044c-fde8-4ed8-b3b3-c30aff07757d"
-    );
+    const messages = await getMessagesAPI(chatId);
     setChatMessages(messages);
     return messages;
   }
@@ -63,11 +63,16 @@ const Chat = () => {
     queryFn: fetchMessages,
   });
 
-  if (isPending) return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  if (isPending)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex-1 overflow-y-auto">   
+      <div className="flex-1 overflow-y-auto">
         <div className="flex flex-col space-y-4 p-4">
           {chatMessages.map((message) => (
             <div key={message.messageId}>
@@ -79,8 +84,8 @@ const Chat = () => {
               <div className="flex items-start gap-3">
                 <LuBrainCircuit className="text-2xl bg-[#303030] p-2 rounded-full flex-shrink-0" />
                 <p className="bg-[#303030] rounded-lg px-4 py-2 max-w-[70%]">
-                  {message.messageId.startsWith('temp-') && isLoading 
-                    ? "Thinking..." 
+                  {message.messageId.startsWith("temp-") && isLoading
+                    ? "Thinking..."
                     : message.response}
                 </p>
               </div>
@@ -94,6 +99,7 @@ const Chat = () => {
           handleSubmit={handleSubmit}
           setPrompt={setPrompt}
           prompt={prompt}
+          disabled={isLoading}
         />
       </div>
     </div>

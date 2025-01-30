@@ -5,11 +5,11 @@ import Chat from "./pages/Chat";
 
 function App() {
   return (
-    <div className="bg-[#212121] text-white">
+    <div className="bg-[#212121] text-white h-screen">
       <h1 className="text-2xl font-bold font-mono italic p-4">BudgetBuddy</h1>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/chat/:id" element={<Chat />} />
+        <Route path="/chat/:chatId" element={<Chat />} />
       </Routes>
     </div>
   );

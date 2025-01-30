@@ -2,7 +2,7 @@ import apiInstance from "./index";
 
 const endpoint = "/chat";
 
-export const getMessages = async (chatId: string) => {
+export const getMessagesAPI = async (chatId: string) => {
   try {
     const response = await apiInstance.post(
       `${endpoint}/messages`,
@@ -19,7 +19,7 @@ export const getMessages = async (chatId: string) => {
   }
 };
 
-export const sendMessage = async (payload: {
+export const sendMessageAPI = async (payload: {
   chatId: string;
   prompt: string;
 }) => {
@@ -29,6 +29,15 @@ export const sendMessage = async (payload: {
         "Content-Type": "application/json",
       },
     });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const createChatAPI = async () => {
+  try {
+    const response = await apiInstance.get(`${endpoint}/create`);
     return response.data;
   } catch (error) {
     console.error(error);
