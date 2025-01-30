@@ -5,7 +5,7 @@ import Chat from "./pages/Chat";
 
 function App() {
   return (
-    <div className="bg-[#212121] text-white h-screen">
+    <div className="bg-[#212121] text-white min-h-screen">
       <h1 className="text-2xl font-bold font-mono italic p-4">BudgetBuddy</h1>
       <Routes>
         <Route path="/" element={<Home />} />
