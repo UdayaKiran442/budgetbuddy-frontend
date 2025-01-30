@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import { getMessagesAPI, sendMessageAPI } from "../api/chat";
 
 import InputComponent from "../components/InputComponent";
+
 import { IMessage } from "../models/message.model";
 
 const Chat = () => {
@@ -82,7 +83,7 @@ const Chat = () => {
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <LuBrainCircuit className="text-2xl bg-[#303030] p-2 rounded-full flex-shrink-0" />
+                <LuBrainCircuit className="text-4xl bg-[#303030] p-2 rounded-full flex-shrink-0" />
                 <p className="bg-[#303030] rounded-lg px-4 py-2 max-w-[70%]">
                   {message.messageId.startsWith("temp-") && isLoading
                     ? "Thinking..."
