@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import apiInstance from "./index";
 
 const endpoint = "/chat";
@@ -15,7 +16,7 @@ export const getMessagesAPI = async (chatId: string) => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
@@ -31,7 +32,7 @@ export const sendMessageAPI = async (payload: {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
@@ -40,6 +41,6 @@ export const createChatAPI = async () => {
     const response = await apiInstance.get(`${endpoint}/create`);
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };

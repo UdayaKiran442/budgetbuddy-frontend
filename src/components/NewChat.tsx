@@ -10,16 +10,22 @@ const NewChat = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent, suggestedPrompt?: string) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const { chatId } = await createChatAPI();
-    await sendMessageAPI({
-      chatId,
-      prompt: suggestedPrompt ? suggestedPrompt.trim() : prompt.trim(),
-    });
-    setPrompt("");
-    setIsLoading(false);
-    navigate(`/chat/${chatId}`);
+    try {
+      e.preventDefault();
+      setIsLoading(true);
+      const { chatId } = await createChatAPI();
+      await sendMessageAPI({
+        chatId,
+        prompt: suggestedPrompt ? suggestedPrompt.trim() : prompt.trim(),
+      });
+      setPrompt("");
+      setIsLoading(false);
+      navigate(`/chat/${chatId}`);
+    } catch (error) {
+      alert((error as Error).message);
+      setIsLoading(false);
+      setPrompt("");
+    }
   };
 
   return (
