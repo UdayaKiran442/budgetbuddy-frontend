@@ -34,14 +34,11 @@ const Chat = () => {
       setChatMessages((prev) => [...prev, tempMessage]);
       setPrompt("");
 
-      const response = await sendMessageAPI({
+      await sendMessageAPI({
         chatId,
         prompt: prompt.trim(),
       });
-
-      if (!response.response) {
-        throw new Error("Failed to get response from server");
-      }
+      setIsLoading(false);
 
       await refetch();
     } catch (err) {
