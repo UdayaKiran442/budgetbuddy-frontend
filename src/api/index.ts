@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiInstance = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://budgetbuddy-backend-67l1.onrender.com",
 });
 
 export default apiInstance;
