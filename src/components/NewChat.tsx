@@ -46,7 +46,7 @@ const NewChat = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              "Job title mentioned in the resume",
+              "How will this budget promotes skill development and research and development in AI?",
               "How will the budget address tax reforms and income tax slab changes?",
               "What initiatives are planned to boost infrastructure and agriculture?",
               "How does the budget aim to enhance support for MSMEs?",
